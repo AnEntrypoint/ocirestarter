@@ -2,17 +2,22 @@
 
 Simple tool for hard restarting OCI instances via the command line.
 
-## Usage
-
-```bash
-node restart.js
-```
-
-Prompts for confirmation before executing a hard restart (RESET action).
-
 ## Setup
 
-OCI credentials must be configured in `~/.oci/config`:
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env` file with your instance details:
+
+```
+OCI_INSTANCE_ID=ocid1.instance.oc1...
+OCI_INSTANCE_NAME=your-instance-name
+```
+
+3. OCI credentials must be configured in `~/.oci/config`:
 
 ```
 [DEFAULT]
@@ -25,6 +30,10 @@ key_file=/home/user/.oci/my-api-key.pem
 
 The private key must be stored at `~/.oci/my-api-key.pem` with permissions `600`.
 
-## Configuration
+## Usage
 
-Edit the `INSTANCE_ID` and `INSTANCE_NAME` variables in `restart.js` to target different instances.
+```bash
+node restart.js
+```
+
+Prompts for confirmation before executing a hard restart (RESET action).

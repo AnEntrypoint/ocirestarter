@@ -1,9 +1,15 @@
 #!/usr/bin/env node
+require('dotenv').config();
 const { execSync } = require('child_process');
 const readline = require('readline');
 
-const INSTANCE_ID = 'REDACTED_INSTANCE_ID';
-const INSTANCE_NAME = 'REDACTED_INSTANCE_NAME';
+const INSTANCE_ID = process.env.OCI_INSTANCE_ID;
+const INSTANCE_NAME = process.env.OCI_INSTANCE_NAME;
+
+if (!INSTANCE_ID || !INSTANCE_NAME) {
+  console.error('Missing OCI_INSTANCE_ID or OCI_INSTANCE_NAME in .env');
+  process.exit(1);
+}
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -14,7 +20,7 @@ const question = (query) => new Promise(resolve => rl.question(query, resolve));
 
 async function hardRestart() {
   try {
-    console.log(`\n⚡ Hard Restarting: ${INSTANCE_NAME}`);
+    console.log(`\nHard Restarting: ${INSTANCE_NAME}`);
     console.log(`   Instance ID: ${INSTANCE_ID}`);
     console.log(`   Action: RESET (immediate power cycle)\n`);
 
@@ -25,20 +31,20 @@ async function hardRestart() {
       return;
     }
 
-    console.log('\n🔄 Initiating hard restart...\n');
+    console.log('\nInitiating hard restart...\n');
 
     const cmd = `oci compute instance action --instance-id ${INSTANCE_ID} --action RESET`;
     const result = execSync(cmd, { encoding: 'utf-8' });
     const data = JSON.parse(result);
 
-    console.log(`✅ Hard restart initiated!\n`);
+    console.log(`Hard restart initiated!\n`);
     console.log(`State: ${data.data['lifecycle-state']}`);
     console.log(`Display Name: ${data.data['display-name']}`);
     console.log(`Last Updated: ${data.data['time-created']}\n`);
 
     rl.close();
   } catch (error) {
-    console.error(`\n❌ Error: Failed to restart instance\n`);
+    console.error(`\nError: Failed to restart instance\n`);
     if (error.stderr) {
       console.error(`Details: ${error.stderr}`);
     }

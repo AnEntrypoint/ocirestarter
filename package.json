@@ -1,0 +1,15 @@
+{
+  "name": "oci",
+  "version": "1.0.0",
+  "description": "Simple tool for hard restarting OCI instances via the command line.",
+  "main": "restart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
