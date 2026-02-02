@@ -1,0 +1,22 @@
+# OCI Configuration and Keys
+~/.oci/
+.oci/
+*.pem
+config
+my-api-key.pem
+
+# Environment files
+.env
+.env.local
+
+# Node modules
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+*.tmp
