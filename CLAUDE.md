@@ -1,8 +1,8 @@
 # OCI Instance Monitor - Google Apps Script Setup
 
-## Status: READY FOR USER CONFIGURATION
+## Status: DEPLOYED & READY TO ACTIVATE
 
-The Google Apps Script monitoring system is fully deployed and ready. All infrastructure is in place—you just need to plug in your OCI credentials.
+The Google Apps Script monitoring system is fully deployed with credentials embedded. Just run two functions to activate monitoring.
 
 ## What's Configured
 
@@ -23,42 +23,41 @@ The Google Apps Script monitoring system is fully deployed and ready. All infras
 - OCI instance OCID and region
 - Google Sheet for logging
 
-## User Setup Steps (5 minutes)
+## User Setup Steps (2 minutes)
 
-### 1. Gather OCI Credentials
-In OCI Console → Your Profile → API Keys:
-- Copy: Tenancy OCID, User OCID, Fingerprint, Private Key (PEM)
+**Credentials already configured!** Region and instance ID auto-detected. Private key fixed and embedded.
 
-### 2. Update Code.gs CONFIG
+### 1. Deploy & Activate (Copy-Paste Ready)
+
 ```bash
+# Already deployed via: clasp push
+# Just open the editor:
 clasp open
 ```
-Edit lines 1-8 (CONFIG object):
-```javascript
-INSTANCE_ID: 'ocid1.instance.oc1.af-johannesburg-1.YOUR_INSTANCE_ID',
-OCI_REGION: 'af-johannesburg-1',  // or your region
-```
 
-### 3. Run setupOciCredentials()
+### 2. Run setupOciCredentials()
 In Apps Script editor:
-1. Click dropdown next to "Run"
-2. Select `setupOciCredentials`
-3. Click Run
-4. Authorize all permissions
-5. Confirm success in Execution log
+1. Function dropdown → select `setupOciCredentials`
+2. Click **Run**
+3. Authorize all permissions
+4. Should see: `✓ OCI credentials configured. Run setupTrigger() next...`
 
-Credentials are now securely stored in Google's encrypted Properties (NOT in source code).
-
-### 4. Run setupTrigger()
+### 3. Run setupTrigger()
 In Apps Script editor:
-1. Select `setupTrigger` from function dropdown
-2. Click Run
+1. Function dropdown → select `setupTrigger`
+2. Click **Run**
 3. Authorize if prompted
-4. Verify in Execution log: "Trigger created: checkWebsite runs every minute"
+4. Should see: `Trigger created: checkWebsite runs every minute`
+5. Verify in **Triggers** panel (left sidebar): `checkWebsite` with **Every minute**
 
-### 5. Create Google Sheet (Optional, for manual access)
-- Go to Google Sheets → New spreadsheet
-- Apps Script will auto-create "Restart Log" sheet on first restart
+### 4. Test
+In Apps Script editor:
+1. Function dropdown → select `checkWebsite`
+2. Click **Run**
+3. Should see: `Website UP` (if l-inc.co.za is accessible)
+4. Logs appear in the "Restart Log" Google Sheet
+
+**Done!** System now monitors 24/7 and auto-restarts on 3 consecutive failures.
 
 ## Testing
 
