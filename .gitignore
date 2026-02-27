@@ -27,4 +27,4 @@ tmp/
 *.tmp
 .glootie-stop-verified
 
-.code-search/
+.code-search/.gitmessage
