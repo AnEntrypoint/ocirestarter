@@ -9,6 +9,11 @@ my-api-key.pem
 .env
 .env.local
 
+# Google Apps Script (contains embedded credentials)
+Code.gs
+.clasp.json
+appsscript.json
+
 # Node modules
 node_modules/
 package-lock.json
@@ -21,3 +26,5 @@ Thumbs.db
 tmp/
 *.tmp
 .glootie-stop-verified
+
+.code-search/
